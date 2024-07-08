@@ -1,0 +1,108 @@
+syntax = "proto3";
+
+option go_package = "genproto/reservation_service";
+
+package res_service;
+
+
+service reservation_service {
+    rpc add_restaurant(add_restaurant_request) returns (add_restaurant_response){}
+    rpc get_restaurant(get_restaurant_request) returns (get_restaurant_response){}
+    rpc update_restaurant(update_restaurant_request) returns (update_restaurant_response){}
+    rpc delete_restaurant(delete_restaurant_request) returns (delete_restaurant_response){}
+    rpc get_restaurants(get_restaurants_request) returns (get_restaurants_response){}
+}
+
+message get_restaurants_request{
+    string name = 1;
+    string address = 2;
+    string phone_number = 3;
+}
+
+message get_restaurants_response{
+    repeated restaurant restaurant = 1;
+}
+
+message add_restaurant_request{
+    string name = 1;
+    string address = 2;
+    string phone_number = 3;
+    string description = 4;
+}
+
+message add_restaurant_response{
+    string id = 1;
+    string name = 2;
+    string address = 3;
+    string phone_number = 4;
+    string description = 5;
+    string created_at = 6;
+}
+
+message get_restaurant_request{
+    string id = 1;
+}
+
+message get_restaurant_response{
+    restaurant restaurant = 1;
+}
+
+message update_restaurant_request{
+    string id = 1;
+    string name = 2;
+    string address = 3;
+    string phone_number = 4;
+    string description = 5;
+}
+
+message update_restaurant_response{
+    restaurant restaurant = 1;
+}
+
+message delete_restaurant_request{
+    string id = 1;
+}
+
+message delete_restaurant_response{
+    bool deleted = 1;
+}
+
+message restaurant {
+    string id = 1;
+    string name = 2;
+    string address = 3;
+    string phone_number = 4;
+    string description = 5;
+    string created_at = 6;
+    string updated_at = 7;
+}
+
+message reservation {
+    string id = 1;
+    string user_id = 2;
+    string restaurant_id = 3;
+    string start_time = 4;
+    string end_time = 5;
+    string status = 6;
+    string created_at = 7;
+    string updated_at = 8;
+}
+
+message reservation_order {
+    string id = 1;
+    string reservation_id = 2;
+    string menu_item_id = 3;
+    int32 quantity = 4;
+    string created_at = 6;
+    string updated_at = 7;
+}
+
+message menu {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    string price = 4;
+    string restaurant_id = 5;
+    string created_at = 6;
+    string updated_at = 7;
+}

@@ -1,0 +1,47 @@
+syntax = "proto3";
+
+option go_package = "genproto/authentication_service";
+
+package auth_service;
+
+service authentication_service {
+    rpc login(login_request) returns (login_response) {}
+    rpc register(register_request) returns (register_response) {}
+    rpc get_profile_by_id(user_id_request) returns (userId_response) {}
+}
+
+message profile {
+    string id = 1;
+    string name = 2;
+    string email = 3;
+    string password = 4;
+    string role = 5;
+    string created_at = 6;
+    string updated_at = 7;
+}
+
+message login_request {
+    string email = 1;
+    string password = 2;
+}
+
+message login_response {
+    string token = 1;
+}
+
+message register_request{
+    profile profile = 1;
+}
+
+message register_response {
+    profile profile = 1;
+}
+
+message user_id_request {
+    string id = 1;
+}
+
+message userId_response {
+    profile profile = 1;
+}
+
