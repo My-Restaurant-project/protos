@@ -26,7 +26,7 @@ message login_request {
 }
 
 message login_response {
-    string token = 1;
+    bool success = 1;
 }
 
 message register_request{
