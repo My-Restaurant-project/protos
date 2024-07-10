@@ -4,33 +4,55 @@ option go_package = "genproto/reservation_service";
 
 package res_service;
 
-
 service reservation_service {
+    // Restaurant methods
     rpc add_restaurant(add_restaurant_request) returns (add_restaurant_response){}
     rpc get_restaurant(get_restaurant_request) returns (get_restaurant_response){}
     rpc update_restaurant(update_restaurant_request) returns (update_restaurant_response){}
     rpc delete_restaurant(delete_restaurant_request) returns (delete_restaurant_response){}
     rpc get_restaurants(get_restaurants_request) returns (get_restaurants_response){}
+
+    // Reservation methods
+    rpc add_reservation(add_reservation_request) returns (add_reservation_response){}
+    rpc get_reservation(get_reservation_request) returns (get_reservation_response){}
+    rpc update_reservation(update_reservation_request) returns (update_reservation_response){}
+    rpc delete_reservation(delete_reservation_request) returns (delete_reservation_response){}
+    rpc get_reservations(get_reservations_request) returns (get_reservations_response){}
+    
+    // Reservation Order methods
+    rpc add_reservation_order(add_reservation_order_request) returns (add_reservation_order_response){}
+    rpc get_reservation_order(get_reservation_order_request) returns (get_reservation_order_response){}
+    rpc update_reservation_order(update_reservation_order_request) returns (update_reservation_order_response){}
+    rpc delete_reservation_order(delete_reservation_order_request) returns (delete_reservation_order_response){}
+    rpc get_reservation_orders(get_reservation_orders_request) returns (get_reservation_orders_response){}
+
+    // Menu methods
+    rpc add_menu(add_menu_request) returns (add_menu_response){}
+    rpc get_menu(get_menu_request) returns (get_menu_response){}
+    rpc update_menu(update_menu_request) returns (update_menu_response){}
+    rpc delete_menu(delete_menu_request) returns (delete_menu_response){}
+    rpc get_menus(get_menus_request) returns (get_menus_response){}
 }
 
-message get_restaurants_request{
+// Restaurant messages
+message get_restaurants_request {
     string name = 1;
     string address = 2;
     string phone_number = 3;
 }
 
-message get_restaurants_response{
+message get_restaurants_response {
     repeated restaurant restaurant = 1;
 }
 
-message add_restaurant_request{
+message add_restaurant_request {
     string name = 1;
     string address = 2;
     string phone_number = 3;
     string description = 4;
 }
 
-message add_restaurant_response{
+message add_restaurant_response {
     string id = 1;
     string name = 2;
     string address = 3;
@@ -39,15 +61,15 @@ message add_restaurant_response{
     string created_at = 6;
 }
 
-message get_restaurant_request{
+message get_restaurant_request {
     string id = 1;
 }
 
-message get_restaurant_response{
+message get_restaurant_response {
     restaurant restaurant = 1;
 }
 
-message update_restaurant_request{
+message update_restaurant_request {
     string id = 1;
     string name = 2;
     string address = 3;
@@ -55,15 +77,15 @@ message update_restaurant_request{
     string description = 5;
 }
 
-message update_restaurant_response{
+message update_restaurant_response {
     restaurant restaurant = 1;
 }
 
-message delete_restaurant_request{
+message delete_restaurant_request {
     string id = 1;
 }
 
-message delete_restaurant_response{
+message delete_restaurant_response {
     bool deleted = 1;
 }
 
@@ -77,15 +99,119 @@ message restaurant {
     string updated_at = 7;
 }
 
+// Reservation messages
+message add_reservation_request {
+    string user_id = 1;
+    string restaurant_id = 2;
+    string reservation_time = 3;
+    string status = 4;
+}
+
+message add_reservation_response {
+    string id = 1;
+    string user_id = 2;
+    string restaurant_id = 3;
+    string reservation_time = 4;
+    string status = 5;
+    string created_at = 6;
+}
+
+message get_reservation_request {
+    string id = 1;
+}
+
+message get_reservation_response {
+    reservation reservation = 1;
+}
+
+message update_reservation_request {
+    string id = 1;
+    string user_id = 2;
+    string restaurant_id = 3;
+    string reservation_time = 4;
+    string status = 5;
+}
+
+message update_reservation_response {
+    reservation reservation = 1;
+}
+
+message delete_reservation_request {
+    string id = 1;
+}
+
+message delete_reservation_response {
+    bool deleted = 1;
+}
+
+message get_reservations_request {
+    string user_id = 1;
+    string restaurant_id = 2;
+    string status = 3;
+}
+
+message get_reservations_response {
+    repeated reservation reservations = 1;
+}
+
 message reservation {
     string id = 1;
     string user_id = 2;
     string restaurant_id = 3;
-    string start_time = 4;
-    string end_time = 5;
-    string status = 6;
-    string created_at = 7;
-    string updated_at = 8;
+    string reservation_time = 4;
+    string status = 5;
+    string created_at = 6;
+    string updated_at = 7;
+}
+
+// Reservation Order messages
+message add_reservation_order_request {
+    string reservation_id = 1;
+    string menu_item_id = 2;
+    int32 quantity = 3;
+}
+
+message add_reservation_order_response {
+    string id = 1;
+    string reservation_id = 2;
+    string menu_item_id = 3;
+    int32 quantity = 4;
+    string created_at = 5;
+}
+
+message get_reservation_order_request {
+    string id = 1;
+}
+
+message get_reservation_order_response {
+    reservation_order reservation_order = 1;
+}
+
+message update_reservation_order_request {
+    string id = 1;
+    string reservation_id = 2;
+    string menu_item_id = 3;
+    int32 quantity = 4;
+}
+
+message update_reservation_order_response {
+    reservation_order reservation_order = 1;
+}
+
+message delete_reservation_order_request {
+    string id = 1;
+}
+
+message delete_reservation_order_response {
+    bool deleted = 1;
+}
+
+message get_reservation_orders_request {
+    string reservation_id = 1;
+}
+
+message get_reservation_orders_response {
+    repeated reservation_order reservation_orders = 1;
 }
 
 message reservation_order {
@@ -93,16 +219,69 @@ message reservation_order {
     string reservation_id = 2;
     string menu_item_id = 3;
     int32 quantity = 4;
+    string created_at = 5;
+    string updated_at = 6;
+}
+
+// Menu messages
+message add_menu_request {
+    string restaurant_id = 1;
+    string name = 2;
+    string description = 3;
+    string price = 4;
+}
+
+message add_menu_response {
+    string id = 1;
+    string restaurant_id = 2;
+    string name = 3;
+    string description = 4;
+    string price = 5;
     string created_at = 6;
-    string updated_at = 7;
+}
+
+message get_menu_request {
+    string id = 1;
+}
+
+message get_menu_response {
+    menu menu = 1;
+}
+
+message update_menu_request {
+    string id = 1;
+    string restaurant_id = 2;
+    string name = 3;
+    string description = 4;
+    string price = 5;
+}
+
+message update_menu_response {
+    menu menu = 1;
+}
+
+message delete_menu_request {
+    string id = 1;
+}
+
+message delete_menu_response {
+    bool deleted = 1;
+}
+
+message get_menus_request {
+    string restaurant_id = 1;
+}
+
+message get_menus_response {
+    repeated menu menus = 1;
 }
 
 message menu {
     string id = 1;
-    string name = 2;
-    string description = 3;
-    string price = 4;
-    string restaurant_id = 5;
+    string restaurant_id = 2;
+    string name = 3;
+    string description = 4;
+    string price = 5;
     string created_at = 6;
     string updated_at = 7;
 }
