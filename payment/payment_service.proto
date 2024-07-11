@@ -1,0 +1,67 @@
+syntax = "proto3";
+
+option go_package = "genproto/payment_service";
+
+package payment_service;
+
+service PaymentService {
+    rpc CreatePayment(CreatePaymentRequest) returns (CreatePaymentResponse);
+    rpc GetPayment(GetPaymentRequest) returns (GetPaymentResponse);
+    rpc ListPayments(ListPaymentsRequest) returns (ListPaymentsResponse);
+    rpc UpdatePayment(UpdatePaymentRequest) returns (UpdatePaymentResponse);
+    rpc DeletePayment(DeletePaymentRequest) returns (DeletePaymentResponse);
+}
+
+message Payment {
+    string id = 1;
+    string reservation_id = 2;
+    string amount = 3;
+    string payment_method = 4;
+    string payment_status = 5;
+    string created_at = 6;
+    string updated_at = 7;
+}
+
+message CreatePaymentRequest {
+    Payment payment = 1;
+}
+
+message CreatePaymentResponse {
+    Payment payment = 1;
+}
+
+message GetPaymentRequest {
+    string id = 1;
+}
+
+message GetPaymentResponse {
+    Payment payment = 1;
+}
+
+message ListPaymentsRequest {
+    string reservation_id = 1;
+    string payment_method = 2;
+    string payment_status = 3;
+    int32 limit = 4;
+    string offset = 5;
+}
+
+message ListPaymentsResponse {
+    repeated Payment payments = 1;
+}
+
+message UpdatePaymentRequest {
+    Payment payment = 1;
+}
+
+message UpdatePaymentResponse {
+    Payment payment = 1;
+}
+
+message DeletePaymentRequest {
+    string id = 1;
+}
+
+message DeletePaymentResponse {
+    string id = 1;
+}
